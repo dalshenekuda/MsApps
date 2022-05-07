@@ -81,6 +81,9 @@ h2 {
   font-weight: bold;
   cursor: pointer;
 }
+.header__button--disabled {
+  background-color: #729e90;
+}
 .header__button--change-type {
   background-color: #ff5050;
   width: 11rem;

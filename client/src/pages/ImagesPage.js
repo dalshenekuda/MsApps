@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getImageList} from "../actions/imagesActions";
+import {getImageList, getImageListByCategory} from "../actions/imagesActions";
 import {useDispatch, useSelector} from "react-redux";
 import ImageItem from "../components/Images/ImageItem";
 import MessageBox from "../components/MessageBox";
@@ -7,22 +7,20 @@ import Loading from "../components/Loading";
 
 const ImagesPage = () => {
     const [currentList, setCurrentList] = useState([])
-    const [category,setCategory] = useState('work')
     const dispatch = useDispatch();
     const imageList = useSelector((state) => state.imageList);
     const {loading, error, images} = imageList;
 
     useEffect(() => {
-        dispatch(getImageList(category));
+        dispatch(getImageList());
     }, [])
 
     useEffect(() => {
-        if (images?.hits) {
-            const list = images.hits.slice(0, 9)
-            setCurrentList(list)
+        if (images) {
+            setCurrentList(images)
         }
-
     }, [images])
+
 
     return (
         <div className="images">

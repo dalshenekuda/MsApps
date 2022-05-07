@@ -4,10 +4,6 @@ import './index.scss';
 import App from './App';
 import {Provider, useDispatch} from "react-redux";
 import store from "./store";
-import {getImageList} from "./actions/imagesActions";
-
-// const dispatch = useDispatch();
-// dispatch(getImageList({}));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

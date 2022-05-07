@@ -10,11 +10,9 @@ const Modal = ({children, visible, closeModal}) => {
         }
     }
     const closeHandler = (e) => {
-        console.log(e)
         if (e.target.classList.contains('modal')){
             closeModal(false)
         }
-
     }
     return (
         <div className={classes.join(' ')} onClick={(e) => closeHandler(e)}>

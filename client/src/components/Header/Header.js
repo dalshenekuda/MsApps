@@ -1,29 +1,54 @@
 import React, {useState} from 'react';
-import ModalHeader from "./ModalHeader";
+import ModalChangeCategory from "./ModalChangeCategory";
+import {getImageListByCategory} from "../../actions/imagesActions";
+import {useDispatch} from "react-redux";
 
 const Header = () => {
-    const [isChoosingCategory, setChoosingCategory] = useState(false)
-    const chooseCategory = () => {
+    const dispatch = useDispatch();
+    const [isChangingCategory, setChangingCategory] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [category, setCategory] = useState('')
 
-        setChoosingCategory(!isChoosingCategory)
-        // console.log(isChoosingType)
+    const changeCategory = () => {
+        setChangingCategory(!isChangingCategory)
     }
+    const nextPageHandler = () => {
+        const newPage = currentPage + 1
+        setCurrentPage(newPage)
+        dispatch(getImageListByCategory(category,newPage))
 
+    }
+    const prevPageHandler = () => {
+        if (currentPage > 1) {
+            const newPage = currentPage - 1
+            setCurrentPage(newPage)
+            dispatch(getImageListByCategory(category,newPage))
+        }
+    }
 
     return (
         <header className="header">
-            <ModalHeader
-                isChoosingCategory ={isChoosingCategory}
-                setChoosingCategory={setChoosingCategory}
+            <ModalChangeCategory
+                isChangingCategory={isChangingCategory}
+                setChangingCategory={setChangingCategory}
+                setCategory={setCategory}
+                setCurrentPage={setCurrentPage}
             />
 
-            <button className="header__button"> {`< Prev`}</button>
+            <button className={`${currentPage < 2 && 'header__button--disabled'} header__button`}
+                    onClick={() => prevPageHandler()}
+                    disabled={currentPage < 2}
+
+            > {`< Prev`}</button>
             <button className="header__button header__button--change-type"
-                    onClick={() => chooseCategory()}
+                    onClick={() => changeCategory()}
             >
                 Choose type
             </button>
-            <button className="header__button">{`Next >`}</button>
+            <button className="header__button"
+                    onClick={() => nextPageHandler()}
+
+            >{`Next >`}</button>
         </header>
     );
 };

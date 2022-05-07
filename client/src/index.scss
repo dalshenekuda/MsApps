@@ -86,6 +86,9 @@ h2 {
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
+    &--disabled{
+      background-color: #729e90;
+    }
 
     &--change-type{
       background-color: #ff5050;

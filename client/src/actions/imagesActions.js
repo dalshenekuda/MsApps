@@ -3,9 +3,11 @@ import {
     IMAGE_LIST_REQUEST,
     IMAGE_LIST_SUCCESS,
     IMAGE_LIST_FAIL,
-    NEXT_PAGE_REQUEST,
-    NEXT_PAGE_SUCCESS,
-    NEXT_PAGE_FAIL,
+
+    IMAGES_BY_CATEGORY_REQUEST,
+    IMAGES_BY_CATEGORY_SUCCESS,
+    IMAGES_BY_CATEGORY_FAIL,
+
 } from '../constants/imagesConstants';
 
 export const getImageList = () => async (dispatch) => {
@@ -13,33 +15,27 @@ export const getImageList = () => async (dispatch) => {
         type: IMAGE_LIST_REQUEST,
     });
     try {
-        const { data } = await Axios.get(`https://pixabay.com/api/?key=25540812-faf2b76d586c1787d2dd02736&q`);
-        dispatch({ type: IMAGE_LIST_SUCCESS, payload: data });
+        const {data} = await Axios.get(`https://pixabay.com/api/?key=25540812-faf2b76d586c1787d2dd02736&per_page=9&page=1`);
+        dispatch({type: IMAGE_LIST_SUCCESS, payload: data.hits});
     } catch (error) {
-        dispatch({ type: IMAGE_LIST_FAIL, payload: error.message });
+        dispatch({type: IMAGE_LIST_FAIL, payload: error.message});
     }
 };
 
-export const getImageListByCategory = (category) => async (dispatch) => {
+export const getImageListByCategory = (category,page) => async (dispatch) => {
     dispatch({
-        type: IMAGE_LIST_REQUEST,
+        type: IMAGES_BY_CATEGORY_REQUEST,
     });
     try {
-        const { data } = await Axios.get(`https://pixabay.com/api/?key=25540812-faf2b76d586c1787d2dd02736&q=${category}`);
-        dispatch({ type: IMAGE_LIST_SUCCESS, payload: data });
+        console.log(category)
+        const {data} = await Axios.post(`/api/images`,{
+            category:category,
+            page:page
+        });
+
+        dispatch({type: IMAGES_BY_CATEGORY_SUCCESS, payload: data});
     } catch (error) {
-        dispatch({ type: IMAGE_LIST_FAIL, payload: error.message });
+        dispatch({type: IMAGES_BY_CATEGORY_FAIL, payload: error.message});
     }
 };
 
-export const nextPage = () => async (dispatch) => {
-    dispatch({
-        type: NEXT_PAGE_REQUEST,
-    });
-    try {
-        const { data } = await Axios.get(`https://pixabay.com/api/?key=25540812-faf2b76d586c1787d2dd02736&q=work`);
-        dispatch({ type: NEXT_PAGE_SUCCESS, payload: data });
-    } catch (error) {
-        dispatch({ type: NEXT_PAGE_FAIL, payload: error.message });
-    }
-};
