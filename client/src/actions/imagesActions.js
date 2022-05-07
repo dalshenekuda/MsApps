@@ -8,6 +8,10 @@ import {
     IMAGES_BY_CATEGORY_SUCCESS,
     IMAGES_BY_CATEGORY_FAIL,
 
+    SORT_IMAGES_FAIL,
+    SORT_IMAGES_REQUEST,
+    SORT_IMAGES_SUCCESS,
+
 } from '../constants/imagesConstants';
 
 export const getImageList = () => async (dispatch) => {
@@ -27,7 +31,6 @@ export const getImageListByCategory = (category,page) => async (dispatch) => {
         type: IMAGES_BY_CATEGORY_REQUEST,
     });
     try {
-        console.log(category)
         const {data} = await Axios.post(`/api/images`,{
             category:category,
             page:page
@@ -36,6 +39,21 @@ export const getImageListByCategory = (category,page) => async (dispatch) => {
         dispatch({type: IMAGES_BY_CATEGORY_SUCCESS, payload: data});
     } catch (error) {
         dispatch({type: IMAGES_BY_CATEGORY_FAIL, payload: error.message});
+    }
+};
+
+export const sortImagesInPageById = (imagesList) => async (dispatch) => {
+    dispatch({
+        type: SORT_IMAGES_REQUEST,
+    });
+    try {
+        const {data} = await Axios.post(`/api/images/sort`,{
+            imagesList:imagesList
+        });
+        console.log(data)
+        dispatch({type: SORT_IMAGES_SUCCESS, payload: data});
+    } catch (error) {
+        dispatch({type: SORT_IMAGES_FAIL, payload: error.message});
     }
 };
 

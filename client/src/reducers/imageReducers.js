@@ -1,3 +1,5 @@
+import {SORT_IMAGES_FAIL, SORT_IMAGES_REQUEST, SORT_IMAGES_SUCCESS} from "../constants/imagesConstants";
+
 const {
     IMAGE_LIST_REQUEST,
     IMAGE_LIST_SUCCESS,
@@ -26,8 +28,17 @@ export const imageListReducer = (
             return {loading: false, images: action.payload};
         case IMAGES_BY_CATEGORY_FAIL:
             return {loading: false, error: action.payload};
+
+        case SORT_IMAGES_REQUEST:
+            return {loading: true};
+        case SORT_IMAGES_SUCCESS:
+            return {loading: false, images: action.payload};
+        case SORT_IMAGES_FAIL:
+            return {loading: false, error: action.payload};
         default:
             return state;
     }
 };
+
+
 

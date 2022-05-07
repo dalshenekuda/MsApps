@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getImageList, getImageListByCategory} from "../actions/imagesActions";
+import {getImageList} from "../actions/imagesActions";
 import {useDispatch, useSelector} from "react-redux";
 import ImageItem from "../components/Images/ImageItem";
 import MessageBox from "../components/MessageBox";
@@ -31,7 +31,6 @@ const ImagesPage = () => {
             ) : (
                 <>
                     {currentList.length === 0 && <MessageBox>No Image Found</MessageBox>}
-
                     <ul className="images-grid">
                         {currentList.map((image) => (
                             <li>

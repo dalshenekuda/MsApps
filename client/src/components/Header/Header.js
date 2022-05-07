@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
 import ModalChangeCategory from "./ModalChangeCategory";
-import {getImageListByCategory} from "../../actions/imagesActions";
-import {useDispatch} from "react-redux";
+import {getImageListByCategory, sortImagesInPageById} from "../../actions/imagesActions";
+import {useDispatch, useSelector} from "react-redux";
 
 const Header = () => {
+
     const dispatch = useDispatch();
+    const imageList = useSelector((state) => state.imageList);
+    const {images} = imageList
+
     const [isChangingCategory, setChangingCategory] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
     const [category, setCategory] = useState('')
@@ -15,15 +19,18 @@ const Header = () => {
     const nextPageHandler = () => {
         const newPage = currentPage + 1
         setCurrentPage(newPage)
-        dispatch(getImageListByCategory(category,newPage))
+        dispatch(getImageListByCategory(category, newPage))
 
     }
     const prevPageHandler = () => {
         if (currentPage > 1) {
             const newPage = currentPage - 1
             setCurrentPage(newPage)
-            dispatch(getImageListByCategory(category,newPage))
+            dispatch(getImageListByCategory(category, newPage))
         }
+    }
+    const sortHandler = () => {
+        dispatch(sortImagesInPageById(images))
     }
 
     return (
@@ -40,11 +47,19 @@ const Header = () => {
                     disabled={currentPage < 2}
 
             > {`< Prev`}</button>
-            <button className="header__button header__button--change-type"
-                    onClick={() => changeCategory()}
-            >
-                Choose type
-            </button>
+            <div className="header__center-buttons">
+                <button className="header__button header__button--change-type"
+                        onClick={() => changeCategory()}
+                >
+                    Choose type
+                </button>
+
+                <button className="header__button header__button--sort"
+                        onClick={() => sortHandler()}
+
+                >{`Sort in page`}</button>
+            </div>
+
             <button className="header__button"
                     onClick={() => nextPageHandler()}
 
