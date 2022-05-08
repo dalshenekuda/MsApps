@@ -4,9 +4,10 @@ import {useDispatch} from "react-redux";
 import {getImageListByCategory} from "../../actions/imagesActions";
 
 const ModalChangeCategory = ({isChangingCategory, setChangingCategory, setCategory,setCurrentPage}) => {
+    // local state of tag select
     const [categoryOption, setCategoryOption] = useState('work')
     const dispatch = useDispatch();
-
+    //if user has chosen some new category we take from backend a 1st images page of the category and close pop up(modal)
     const changeCategoryHandler = () => {
         setCurrentPage(1)
         setCategory(categoryOption)

@@ -16,12 +16,14 @@ const Header = () => {
     const changeCategory = () => {
         setChangingCategory(!isChangingCategory)
     }
+    //does page+1 and just make the request of images by category (in action)
     const nextPageHandler = () => {
         const newPage = currentPage + 1
         setCurrentPage(newPage)
         dispatch(getImageListByCategory(category, newPage))
 
     }
+    //does page-1 and just make the request of images by category (in action)
     const prevPageHandler = () => {
         if (currentPage > 1) {
             const newPage = currentPage - 1
@@ -35,6 +37,7 @@ const Header = () => {
 
     return (
         <header className="header">
+            {/*passes props to managing of model*/}
             <ModalChangeCategory
                 isChangingCategory={isChangingCategory}
                 setChangingCategory={setChangingCategory}

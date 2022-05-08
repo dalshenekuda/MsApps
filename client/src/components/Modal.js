@@ -1,5 +1,6 @@
 import React from 'react';
 
+// abstract component to create different models (pop up)
 const Modal = ({children, visible, closeModal}) => {
     const classes = ['modal']
     if (!visible) {
@@ -9,6 +10,7 @@ const Modal = ({children, visible, closeModal}) => {
             classes.splice(classes.indexOf('hide'), 1)
         }
     }
+    //if user clicks to some area except model, model will be closed
     const closeHandler = (e) => {
         if (e.target.classList.contains('modal')){
             closeModal(false)

@@ -7,6 +7,7 @@ const ImageModal = ({isImageOpen, setImageOpen, image}) => {
             visible={isImageOpen}
             closeModal={setImageOpen}
         >
+            {/*main info about image */}
             <div className="image__modal">
                 <p>{`Views :  ${image?.views}`}</p>
                 <p>{`Downloads : ${image?.downloads}`}</p>

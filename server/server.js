@@ -3,11 +3,12 @@ import dotenv from 'dotenv';
 import imagesRouter from './routers/imagesRouter.js';
 
 dotenv.config();
-
+// create an express application
 const app = express();
+// for parsing application/json
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+//routers
 app.use('/api/images', imagesRouter);
 
 app.use((err, req, res) => {

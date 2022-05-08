@@ -9,6 +9,7 @@ const ImageItem = ({image}) => {
     }
     return (
         <>
+            {/*model (pop up with main info)*/}
             <ImageModal isImageOpen={isImageOpen} setImageOpen={setImageOpen} image={image} />
             <img className="images-grid__image"
                  onClick={() => openHandler()}

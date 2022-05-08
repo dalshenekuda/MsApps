@@ -7,11 +7,14 @@ import Loading from "../components/Loading";
 
 const ImagesPage = () => {
     const [currentList, setCurrentList] = useState([])
+    // take loading, error, images states from redux store
     const dispatch = useDispatch();
     const imageList = useSelector((state) => state.imageList);
     const {loading, error, images} = imageList;
 
+    // initial request to pixabay
     useEffect(() => {
+        //it will be passed to getImageList action
         dispatch(getImageList());
     }, [])
 

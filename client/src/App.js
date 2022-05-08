@@ -10,6 +10,7 @@ function App() {
             <div className="container">
                 <BrowserRouter>
                     <Header/>
+                    {/*if we need to add new routes we can do it here*/}
                     <Route path="/" component={ImagesPage}></Route>
                 </BrowserRouter>
             </div>
